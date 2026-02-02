@@ -115,7 +115,13 @@ void Matrix_fill_border(Matrix* mat, int value) {
 // REQUIRES: mat points to a valid Matrix
 // EFFECTS:  Returns the value of the maximum element in the Matrix
 int Matrix_max(const Matrix* mat) {
-  assert(false); // TODO Replace with your implementation!
+  int max_value = mat->data[0];
+  for (size_t i = 0; i < mat->data.size(); ++i){
+    if (mat->data[i] > max_value){
+      max_value = mat->data[i];
+    }
+  }
+  return max_value;
 }
 
 // REQUIRES: mat points to a valid Matrix
@@ -130,7 +136,19 @@ int Matrix_max(const Matrix* mat) {
 //           the leftmost one.
 int Matrix_column_of_min_value_in_row(const Matrix* mat, int row,
                                       int column_start, int column_end) {
-  assert(false); // TODO Replace with your implementation!
+  int min_column = column_start;
+  int min_value = *Matrix_at(mat, row, column_start);
+
+  for(int col = column_start; col < column_end; ++col){
+    int current_value = *Matrix_at(mat, row, col);
+    if(current_value < min_value){
+      min_value = current_value;
+      min_column = col;
+    }
+  }
+
+  return min_column;
+
 }
 
 // REQUIRES: mat points to a valid Matrix
