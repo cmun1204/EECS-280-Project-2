@@ -160,5 +160,14 @@ int Matrix_column_of_min_value_in_row(const Matrix* mat, int row,
 //           column_start (inclusive) and column_end (exclusive).
 int Matrix_min_value_in_row(const Matrix* mat, int row,
                             int column_start, int column_end) {
-  assert(false); // TODO Replace with your implementation!
+  int min_value = *Matrix_at(mat, row, column_start);
+
+  for(int col = column_start; col < column_end; ++col){
+    int current_value = *Matrix_at(mat, row, col);
+    if(current_value < min_value){
+      min_value = current_value;
+    }
+  }
+
+  return min_value;
 }
