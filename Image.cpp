@@ -7,12 +7,17 @@
 // EFFECTS:  Initializes the Image with the given width and height, with
 //           all pixels initialized to RGB values of 0.
 void Image_init(Image* img, int width, int height) {
-  Image img; 
-  for (int i = 0; i < height; i++){
-    for (int j = 0; j < width; j++) {
-    Image_set_pixel(img, i, j,  {0,0,0});
-    }
-  }
+  assert(0< width && 0 < height);
+  img->width = width;
+  img->height = height;
+  
+  Matrix_init(&img->red_channel, width, height);
+  Matrix_init(&img->green_channel, width, height);
+  Matrix_init(&img->blue_channel, width, height);
+
+  Matrix_fill(&img->red_channel, 0);
+  Matrix_fill(&img->green_channel, 0);
+  Matrix_fill(&img->blue_channel, 0);
 }
 
 // REQUIRES: img points to an Image
@@ -41,7 +46,7 @@ void Image_init(Image* img, std::istream& is) {
     int g;
     int b;
     is >> r >> g >> b;
-    Image_set_pixel(img, i, j,  {r,g,b});
+    Image_set_pixel(img, i, j, {r,g,b});
     }
   }
 }
@@ -97,6 +102,12 @@ int Image_height(const Image* img) {
 Pixel Image_get_pixel(const Image* img, int row, int column) {
   assert(0 <= row && row < Image_height(img));
   assert(0 <= column && column < Image_width(img));
+  
+  int r = *Matrix_at(&img->red_channel, row, column);
+  int g = *Matrix_at(&img->green_channel, row, column);
+  int b = *Matrix_at(&img->blue_channel, row, column);
+  Pixel p = {r,g,b};
+  return p;
 }
 
 // REQUIRES: img points to a valid Image
@@ -106,12 +117,28 @@ Pixel Image_get_pixel(const Image* img, int row, int column) {
 // EFFECTS:  Sets the pixel in the Image at the given row and column
 //           to the given color.
 void Image_set_pixel(Image* img, int row, int column, Pixel color) {
-  assert(false); // TODO Replace with your implementation!
+  assert(0 <= row && row < Image_height(img));
+  assert(0 <= column && column < Image_width(img));
+
+  int *r = Matrix_at(&img->red_channel, row, column);
+  int *g = Matrix_at(&img->green_channel, row, column);
+  int *b = Matrix_at(&img->blue_channel, row, column);
+
+  *r = color.r;
+  *g = color.g;
+  *b = color.b;
 }
 
 // REQUIRES: img points to a valid Image
 // MODIFIES: *img
 // EFFECTS:  Sets each pixel in the image to the given color.
 void Image_fill(Image* img, Pixel color) {
-  assert(false); // TODO Replace with your implementation!
+  int height = Image_height(img);
+  int width = Image_width(img);
+
+  for (int i = 0; i < height; i++){
+    for (int j = 0; j < width; j++) {
+    Image_set_pixel(img, i, j,  color);
+    }
+  }
 }
