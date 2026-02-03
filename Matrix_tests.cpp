@@ -54,7 +54,7 @@ TEST(test_matrix_print) {
 }
 
 // Fills a 3x5 Matrix with a value and checks
-// that Matrix_width resturns the correct width of the matrix
+// that Matrix_width returns the correct width of the matrix
 TEST(test_matrix_width) {
   Matrix mat; 
   const int width = 3;
@@ -66,7 +66,7 @@ TEST(test_matrix_width) {
 }
 
 // Fills a 3x5 Matrix with a value and checks
-// that Matrix_height resturns the correct height of the matrix
+// that Matrix_height returns the correct height of the matrix
 TEST(test_matrix_height) {
   Matrix mat; 
   const int width = 3;
@@ -105,7 +105,7 @@ TEST(test_fill_border) {
 }
 
 // Fills a 2x3 Matrix with a value and checks
-// that Matrix_max resturns the correct greatest value of the matrix
+// that Matrix_max returns the correct greatest value of the matrix
 TEST(test_matrix_max) {
   Matrix mat; 
   const int width = 3;
@@ -125,7 +125,7 @@ TEST(test_matrix_max) {
 }
 
 // Fills a 2x3 Matrix with a value and checks
-// that Matrix_column_of_min_value_in_row resturns the correct column 
+// that Matrix_column_of_min_value_in_row returns the correct column 
 //containing the minimum value of the matrix given a specific region
 TEST(test_column_of_min_value) {
   Matrix mat; 
@@ -149,7 +149,7 @@ TEST(test_column_of_min_value) {
 }
 
 // Fills a 2x3 Matrix with a value and checks
-// that Matrix_min_value_in_row resturns the correct minimum value 
+// that Matrix_min_value_in_row returns the correct minimum value 
 //in a given row
 TEST(test_min_value_in_row) {
   Matrix mat; 
