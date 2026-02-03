@@ -7,8 +7,12 @@
 // EFFECTS:  Initializes the Image with the given width and height, with
 //           all pixels initialized to RGB values of 0.
 void Image_init(Image* img, int width, int height) {
-  Image img; // create an Image object in local memory
-  Image_init(&img, width, height); // initialize it as a 5x5 image
+  Image img; 
+  for (int i = 0; i < height; i++){
+    for (int j = 0; j < width; j++) {
+    Image_set_pixel(img, i, j,  {0,0,0});
+    }
+  }
 }
 
 // REQUIRES: img points to an Image
@@ -19,7 +23,27 @@ void Image_init(Image* img, int width, int height) {
 //           from the given input stream.
 // NOTE:     See the project spec for a discussion of PPM format.
 void Image_init(Image* img, std::istream& is) {
-  assert(false); // TODO Replace with your implementation!
+  
+  std::string magic_num;
+  is >> magic_num;
+  assert(magic_num == "P3");
+  int width;
+  int height; 
+  is >> width >> height;
+  int max_val;
+  is >> max_val;
+  assert(max_val == 255);
+  Image_init(img, width, height);
+
+  for (int i = 0; i < height; i++){
+    for (int j = 0; j < width; j++) {
+    int r;
+    int g;
+    int b;
+    is >> r >> g >> b;
+    Image_set_pixel(img, i, j,  {r,g,b});
+    }
+  }
 }
 
 // REQUIRES: img points to a valid Image
@@ -37,19 +61,33 @@ void Image_init(Image* img, std::istream& is) {
 //           "extra" space at the end of each line. See the project spec
 //           for an example.
 void Image_print(const Image* img, std::ostream& os) {
-  assert(false); // TODO Replace with your implementation!
+  int width = Image_width(img);
+  int height = Image_height(img);
+  int max_val = 255;
+  os << "P3" << "\n";
+  os << width << " " << height << "\n";
+  os << max_val << "\n";
+ 
+  for (int i = 0; i < height; i++){
+    for (int j = 0; j < width; j++) {
+    Pixel p = Image_get_pixel(img, i, j);
+    os << p.r << " " << p.g << " " << p.b << " ";
+    }
+    os << "\n";
+  }
 }
+
 
 // REQUIRES: img points to a valid Image
 // EFFECTS:  Returns the width of the Image.
 int Image_width(const Image* img) {
-  assert(false); // TODO Replace with your implementation!
+  return img->width;
 }
 
 // REQUIRES: img points to a valid Image
 // EFFECTS:  Returns the height of the Image.
 int Image_height(const Image* img) {
-  assert(false); // TODO Replace with your implementation!
+  return img->height;
 }
 
 // REQUIRES: img points to a valid Image
@@ -57,7 +95,8 @@ int Image_height(const Image* img) {
 //           0 <= column && column < Image_width(img)
 // EFFECTS:  Returns the pixel in the Image at the given row and column.
 Pixel Image_get_pixel(const Image* img, int row, int column) {
-  assert(false); // TODO Replace with your implementation!
+  assert(0 <= row && row < Image_height(img));
+  assert(0 <= column && column < Image_width(img));
 }
 
 // REQUIRES: img points to a valid Image
