@@ -113,7 +113,7 @@ void compute_energy_matrix(const Image* img, Matrix* energy) {
     *Matrix_at(energy, 0, column) = max_energy;
     *Matrix_at(energy, height - 1, column) = max_energy;
   }
-  for (int row = 0; row < width; ++row){
+  for (int row = 0; row < height; ++row){
     *Matrix_at(energy, row, 0) = max_energy;
     *Matrix_at(energy, row, width - 1) = max_energy;
   }
