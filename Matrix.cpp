@@ -10,8 +10,9 @@ void Matrix_init(Matrix* mat, int width, int height) {
   assert(mat);
   assert(0 < width && 0 < height);
 
-  Matrix m;
-  Matrix_init(&m, width, height);
+  mat->width = width;
+  mat->height = height;
+  mat->data = std::vector<int>(width * height, 0);
 }
 
 // REQUIRES: mat points to a valid Matrix
@@ -82,7 +83,8 @@ const int* Matrix_at(const Matrix* mat, int row, int column) {
   assert(0 <= row && row < Matrix_height(mat));
   assert(0 <= column && column < Matrix_width(mat));
 
-  const int* location = &mat->data[row * Matrix_width(mat) + column];
+  int index = row * Matrix_width(mat) + column;
+  const int* location = &mat->data[index];
   return location;
 }
 
