@@ -148,6 +148,23 @@ TEST(test_column_of_min_value) {
   ASSERT_EQUAL(result, 1);
 }
 
+//Fills a 4x1 Matrix with values and checks
+//that Matrix_column_of_min_value_in_row returns the leftmost column
+//when there is a tie for the minimum value
+TEST(test_column_of_min_value_tie_leftmost){
+  Matrix mat;
+  Matrix_init(&mat, 4, 1);
+
+  *Matrix_at(&mat, 0,0) = 5;
+  *Matrix_at(&mat, 0,1) = -1;
+  *Matrix_at(&mat, 0,2) = -1;
+  *Matrix_at(&mat, 0,3) = 4;
+
+  int result = Matrix_column_of_min_value_in_row(&mat, 0, 0, 4);
+
+  ASSERT_EQUAL(result, 1);
+}
+
 // Fills a 2x3 Matrix with a value and checks
 // that Matrix_min_value_in_row returns the correct minimum value 
 //in a given row
