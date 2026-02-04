@@ -150,7 +150,6 @@ int Matrix_column_of_min_value_in_row(const Matrix* mat, int row,
   }
 
   return min_column;
-
 }
 
 // REQUIRES: mat points to a valid Matrix
