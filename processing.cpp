@@ -100,7 +100,8 @@ void compute_energy_matrix(const Image* img, Matrix* energy) {
       Pixel W_pixel = Image_get_pixel(img, row, col-1);
       Pixel S_pixel = Image_get_pixel(img, row+1, col);
 
-      int e = squared_difference(N_pixel,S_pixel)+squared_difference(W_pixel,E_pixel);
+      int e = squared_difference(N_pixel,S_pixel)
+      +squared_difference(W_pixel,E_pixel);
       *Matrix_at(energy, row, col) = e;
 
       if (e > max_energy){
@@ -151,9 +152,11 @@ void compute_vertical_cost_matrix(const Matrix* energy, Matrix *cost) {
         right_column = width;
       }
 
-      int min_cost_value = Matrix_min_value_in_row(cost, row - 1, left_column, right_column);
+      int min_cost_value = Matrix_min_value_in_row(cost, row - 1, 
+        left_column, right_column);
 
-      *Matrix_at(cost, row, column) = *Matrix_at(energy, row, column) + min_cost_value;
+      *Matrix_at(cost, row, column) = *Matrix_at(energy, row, column)
+       + min_cost_value;
     }
   }
 }
@@ -191,7 +194,8 @@ vector<int> find_minimal_vertical_seam(const Matrix* cost) {
       right_column = width;
     }
 
-    column = Matrix_column_of_min_value_in_row(cost, row - 1, left_column, right_column);
+    column = Matrix_column_of_min_value_in_row(cost, row - 1, 
+      left_column, right_column);
     seam[row - 1] = column;
   }
 
